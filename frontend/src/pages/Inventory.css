@@ -1,0 +1,486 @@
+.inventory {
+  animation: fadeIn 0.3s ease;
+}
+
+.inventory h1 {
+  color: var(--text);
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.inventory-tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid var(--border);
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+  position: relative;
+  bottom: -2px;
+}
+
+.tab-btn:hover {
+  color: var(--text);
+}
+
+.tab-btn.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.inventory-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.summary-card {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 25px;
+  text-align: center;
+}
+
+.summary-label {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summary-value {
+  font-size: 36px;
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.summary-value.highlight {
+  color: var(--success);
+}
+
+.inventory-table {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: rgba(99, 102, 241, 0.1);
+  border-bottom: 2px solid var(--border);
+}
+
+thead th {
+  color: var(--text);
+  font-weight: 600;
+  padding: 16px;
+  text-align: left;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.3s ease;
+}
+
+tbody tr:hover {
+  background: rgba(99, 102, 241, 0.05);
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+td {
+  color: var(--text);
+  padding: 16px;
+  font-size: 14px;
+}
+
+.item-name {
+  font-weight: 500;
+  color: var(--primary);
+}
+
+.quantity {
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.price {
+  color: var(--text-secondary);
+}
+
+.total-value {
+  font-weight: 600;
+  color: var(--success);
+}
+
+.list-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.small-input {
+  width: 72px;
+  padding: 7px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+}
+
+.small-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.list-btn {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+}
+
+.list-btn.sale {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+}
+
+.list-btn.auction {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.list-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.empty-inventory {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.empty-inventory p {
+  color: var(--text-secondary);
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.shop-link {
+  display: inline-block;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 12px 24px;
+  border: 2px solid var(--primary);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.shop-link:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* Listings Tab Styles */
+.listings-table {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.listing-type {
+  display: flex;
+  align-items: center;
+}
+
+.type-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.type-badge.sale {
+  background: rgba(22, 163, 74, 0.2);
+  color: #16a34a;
+}
+
+.type-badge.auction {
+  background: rgba(37, 99, 235, 0.2);
+  color: #2563eb;
+}
+
+.created-at {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.edit-price-btn {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border: none;
+  color: white;
+  padding: 7px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-price-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.price-edit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.price-input {
+  width: 70px;
+  padding: 6px 8px;
+  border: 2px solid var(--primary);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.price-input:focus {
+  outline: none;
+  border-color: var(--success);
+}
+
+.edit-btn {
+  border: none;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.edit-btn.confirm {
+  background: #16a34a;
+  color: white;
+}
+
+.edit-btn.confirm:hover:not(:disabled) {
+  background: #15803d;
+}
+
+.edit-btn.cancel {
+  background: #dc2626;
+  color: white;
+}
+
+.edit-btn.cancel:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+.edit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.empty-listings {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.empty-listings p {
+  color: var(--text-secondary);
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.empty-listings .hint {
+  font-size: 13px;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.auction-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 10, 18, 0.72);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 2000;
+}
+
+.auction-modal {
+  width: min(560px, 100%);
+  background: linear-gradient(135deg, #161a2f 0%, #232941 100%);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 20px 45px rgba(4, 7, 17, 0.45);
+}
+
+.auction-modal h2 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--text);
+}
+
+.auction-modal-item {
+  margin: 8px 0 20px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.auction-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.auction-modal-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.auction-modal-grid input {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.auction-modal-grid input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.auction-modal-full-width {
+  grid-column: 1 / -1;
+}
+
+.auction-modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-btn.secondary {
+  background: rgba(148, 163, 184, 0.2);
+  color: var(--text);
+}
+
+.modal-btn.primary {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #fff;
+}
+
+.modal-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .inventory h1 {
+    font-size: 24px;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  thead th,
+  td {
+    padding: 12px;
+  }
+
+  .summary-value {
+    font-size: 28px;
+  }
+
+  .list-controls {
+    gap: 6px;
+  }
+
+  .small-input {
+    width: 64px;
+  }
+
+  .auction-modal {
+    padding: 18px;
+  }
+
+  .auction-modal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .auction-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .modal-btn {
+    width: 100%;
+  }
+}

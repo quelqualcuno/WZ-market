@@ -1,0 +1,132 @@
+.categories {
+  animation: fadeIn 0.3s ease;
+}
+
+.categories h1 {
+  color: var(--text);
+  font-size: 36px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.category-card {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2a2a3e 100%);
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  padding: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(99, 102, 241, 0.3);
+  border-color: var(--secondary);
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.category-icon {
+  font-size: 40px;
+  background: rgba(99, 102, 241, 0.2);
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid var(--primary);
+}
+
+.category-header h3 {
+  color: var(--text);
+  font-size: 20px;
+  margin: 0;
+  flex: 1;
+}
+
+.category-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.category-stats .stat {
+  text-align: center;
+}
+
+.category-stats .label {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+
+.category-stats .value {
+  display: block;
+  color: var(--primary);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.view-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.view-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+}
+
+.loading {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 60px 20px;
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .categories h1 {
+    font-size: 28px;
+  }
+
+  .categories-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .category-card {
+    padding: 20px;
+  }
+}
