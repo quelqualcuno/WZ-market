@@ -40,4 +40,4 @@ class User(Base):
     ratings_received: Mapped[list["Rating"]] = relationship("Rating", back_populates="rated_user", foreign_keys="Rating.rated_user_id")
     transactions: Mapped[list["TransactionLog"]] = relationship("TransactionLog", back_populates="user")
     escrows_as_seller: Mapped[list["Escrow"]] = relationship("Escrow", back_populates="seller", foreign_keys="Escrow.seller_id")
-    escrows_as_buyer: Mapped[list["Escrow"]] = relationship("Escrow", back_populates="buyer", foreign_keys="Escrow.buyer_id")
+    escrows_as_buyer: Mapped[list["Escrow"]] = relationship("Escrow", back_populates="buyer", foreign_keys="Escrow.buyer_id", primaryjoin="Escrow.buyer_id == User.id")

@@ -43,7 +43,7 @@ class Escrow(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     seller_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
-    buyer_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    buyer_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=True)
     item_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("items.id"), nullable=False)
     quantity: Mapped[int] = mapped_column(Integer, nullable=False)
     amount: Mapped[float] = mapped_column(Float, nullable=False)
@@ -54,5 +54,5 @@ class Escrow(Base):
     released_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
     seller: Mapped["User"] = relationship("User", back_populates="escrows_as_seller", foreign_keys=[seller_id])
-    buyer: Mapped["User"] = relationship("User", back_populates="escrows_as_buyer", foreign_keys=[buyer_id])
+    buyer: Mapped["User | None"] = relationship("User", back_populates="escrows_as_buyer", foreign_keys=[buyer_id])
     item: Mapped["Item"] = relationship("Item", back_populates="escrows")

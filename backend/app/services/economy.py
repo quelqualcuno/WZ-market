@@ -1,3 +1,4 @@
+import uuid
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.item import Item
 from app.models.price_history import PriceHistory, PriceSource
@@ -20,6 +21,6 @@ async def adjust_price(item: Item, db: AsyncSession) -> None:
     db.add(price_hist)
 
 
-async def record_price(item_id, price: float, source: PriceSource, db: AsyncSession) -> None:
-    ph = PriceHistory(item_id=item_id, price=price, source=source)
+async def record_price(item_id: uuid.UUID, price: float, source: PriceSource, db: AsyncSession) -> None:
+    ph = PriceHistory(item_id=item_id, price=price, source=source, recorded_at=datetime.now(timezone.utc))
     db.add(ph)

@@ -90,7 +90,7 @@ async def create_offer(
     escrow = Escrow(
         id=uuid.uuid4(),
         seller_id=current_user.id,
-        buyer_id=current_user.id,
+        buyer_id=None,
         item_id=offer_data.item_id,
         quantity=offer_data.quantity,
         amount=total_amount,
