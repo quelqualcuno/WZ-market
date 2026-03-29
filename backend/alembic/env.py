@@ -10,7 +10,7 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from app.database import Base
-from app.models import *  # noqa: F401, F403
+import app.models  # registers all models with Base.metadata for autogenerate
 
 config = context.config
 

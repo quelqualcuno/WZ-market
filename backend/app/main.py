@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from app.config import settings
 from app.database import engine, Base
 from app.routers import auth, users, items, shop, inventory, marketplace, auctions, ratings, admin
-from app.models import *  # noqa: F401, F403 — ensures all models are registered with Base.metadata before create_all
+import app.models  # ensures all models are registered with Base.metadata before create_all
 
 
 @asynccontextmanager
