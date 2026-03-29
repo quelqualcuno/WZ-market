@@ -1,31 +1,142 @@
+/* ============================================================
+   ZERO MARKET - Global Theme (World Zero inspired)
+   Sostituisce: frontend/src/index.css
+   ============================================================ */
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
-  color: #f5f5f5;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'Fira Code', source-code-pro, Menlo, Monaco, Consolas, monospace;
 }
 
-/* Dark theme variables */
+/* ---- CSS Variables ---- */
 :root {
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
-  --secondary: #ec4899;
-  --background: #0f0f1e;
-  --surface: #1a1a2e;
-  --surface-light: #2a2a3e;
-  --text: #f5f5f5;
-  --text-secondary: #a0a0b2;
-  --border: #3a3a4e;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
+  /* Backgrounds */
+  --bg: #07090f;
+  --bg2: #0d1120;
+  --surface: #111827;
+  --surface2: #1a2235;
+  --surface3: #1f2a42;
+
+  /* Accent colors */
+  --primary: #4fa3e8;
+  --primary-dark: #2a6db5;
+  --primary-dim: rgba(79, 163, 232, 0.12);
+  --primary-glow: rgba(79, 163, 232, 0.25);
+
+  --violet: #9b6dff;
+  --violet-dim: rgba(155, 109, 255, 0.12);
+
+  --gold: #f0b843;
+  --gold2: #ffd966;
+  --gold-dim: rgba(240, 184, 67, 0.12);
+
+  --teal: #2ecfb8;
+  --teal-dim: rgba(46, 207, 184, 0.12);
+
+  /* Status */
+  --success: #3dd68c;
+  --success-dim: rgba(61, 214, 140, 0.12);
+  --warning: #f0b843;
+  --warning-dim: rgba(240, 184, 67, 0.12);
+  --danger: #e85555;
+  --danger-dim: rgba(232, 85, 85, 0.12);
+
+  /* Text */
+  --text: #e8eaf0;
+  --text-secondary: #94a3b8;
+  --text-muted: #5a6a8a;
+
+  /* Borders */
+  --border: rgba(100, 140, 255, 0.15);
+  --border-bright: rgba(100, 180, 255, 0.32);
+  --border-gold: rgba(240, 184, 67, 0.28);
+
+  /* Rarity colors */
+  --common: #8a9bb5;
+  --uncommon: #3ecf8e;
+  --rare: #4fa3e8;
+  --epic: #9b6dff;
+  --legendary: #f0b843;
+
+  /* Layout */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb {
+  background: rgba(79, 163, 232, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(79, 163, 232, 0.55); }
+
+/* ---- Selection ---- */
+::selection {
+  background: rgba(79, 163, 232, 0.25);
+  color: var(--text);
+}
+
+/* ---- Utility: Animations ---- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ---- Global feedback states ---- */
+.error-msg {
+  background: var(--danger-dim);
+  border: 1px solid rgba(232, 85, 85, 0.3);
+  color: #ff8a8a;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.success-msg {
+  background: var(--success-dim);
+  border: 1px solid rgba(61, 214, 140, 0.3);
+  color: var(--success);
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 260px;
+  font-size: 15px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
 }

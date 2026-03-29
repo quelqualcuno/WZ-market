@@ -1,6 +1,40 @@
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { inventoryAPI } from '../services/api'
 import './Dashboard.css'
 
 function Dashboard({ user }) {
+  const [inventoryItems, setInventoryItems] = useState([])
+  const [inventoryTotalValue, setInventoryTotalValue] = useState(0)
+
+  const fetchInventoryStats = useCallback(async () => {
+    try {
+      const response = await inventoryAPI.get()
+      const items = response.data?.items || []
+      const totalValue = Number(response.data?.total_value || 0)
+      setInventoryItems(items)
+      setInventoryTotalValue(Number.isFinite(totalValue) ? totalValue : 0)
+    } catch (err) {
+      console.error('Errore nel caricamento statistiche inventario:', err)
+    }
+  }, [])
+
+  useEffect(() => {
+    fetchInventoryStats()
+
+    const intervalId = setInterval(fetchInventoryStats, 15000)
+    const onFocus = () => fetchInventoryStats()
+
+    window.addEventListener('focus', onFocus)
+    return () => {
+      clearInterval(intervalId)
+      window.removeEventListener('focus', onFocus)
+    }
+  }, [fetchInventoryStats])
+
+  const inventoryQuantity = useMemo(() => {
+    return inventoryItems.reduce((sum, item) => sum + Number(item.quantity || 0), 0)
+  }, [inventoryItems])
+
   return (
     <div className="dashboard">
       <div className="welcome-section">
@@ -15,11 +49,11 @@ function Dashboard({ user }) {
         </div>
         <div className="stat-card">
           <div className="stat-label">📦 Inventario</div>
-          <div className="stat-value">0 items</div>
+          <div className="stat-value">{inventoryQuantity} items</div>
         </div>
         <div className="stat-card">
           <div className="stat-label">📊 Valore Portafoglio</div>
-          <div className="stat-value">0.00</div>
+          <div className="stat-value">{inventoryTotalValue.toFixed(2)}</div>
         </div>
         <div className="stat-card">
           <div className="stat-label">⭐ Reputazione</div>

@@ -37,6 +37,14 @@ function ItemDetail({ item, onClose }) {
   // Convert rarity_index to stars (1-5)
   const rarityStars = Math.min(Math.round(item.rarity_index), 5)
 
+  const rarityClass = (() => {
+    if (rarityStars >= 5) return 'rarity-legendary'
+    if (rarityStars === 4) return 'rarity-epic'
+    if (rarityStars === 3) return 'rarity-rare'
+    if (rarityStars === 2) return 'rarity-uncommon'
+    return 'rarity-common'
+  })()
+
   const renderStars = (count) => {
     return '★'.repeat(count) + '☆'.repeat(5 - count)
   }
@@ -72,7 +80,7 @@ function ItemDetail({ item, onClose }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className={`modal-content ${rarityClass}`} onClick={(e) => e.stopPropagation()}>
         <button className="close-button" onClick={onClose}>✕</button>
         
         <div className="item-detail-container">
