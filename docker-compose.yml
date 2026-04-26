@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: wz-backend
+    restart: unless-stopped
+    volumes:
+      # Mappiamo il database sqlite per renderlo persistente ai riavvii
+      - ./backend/zeromarket.db:/app/zeromarket.db
+    # La porta 8000 è esposta solo alla rete interna di Docker
+
+  frontend:
+    build: ./frontend
+    container_name: wz-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+  caddy:
+    image: caddy:latest
+    container_name: wz-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - backend
+      - frontend
+
+volumes:
+  caddy_data:
+  caddy_config:

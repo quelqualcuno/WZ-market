@@ -1,0 +1,13 @@
+# Sostituisci "tuo-dominio.com" con il tuo dominio reale o con "localhost" per test locali
+tuo-dominio.com {
+    
+    # Inoltra tutte le richieste che iniziano per /api al backend FastAPI
+    handle_path /api/* {
+        reverse_proxy backend:8000
+    }
+
+    # Inoltra tutto il resto al frontend React
+    handle /* {
+        reverse_proxy frontend:80
+    }
+}
