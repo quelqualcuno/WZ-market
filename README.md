@@ -1,50 +1,60 @@
 # ZeroMarket
 
-Piattaforma web full-stack per marketplace virtuale in stile gaming, con backend FastAPI + SQLAlchemy e frontend React + Vite.
+Piattaforma full-stack per marketplace virtuale in stile gaming.
 
-## Stato Attuale
+## Panoramica
 
-- Backend API con autenticazione JWT e sessione utente persistente.
-- Shop con lista oggetti, ricerca, ordinamento e dettaglio item.
-- Flusso acquisto con controllo saldo, stock e creazione ordini.
-- Inventario utente con valore totale e listing oggetti.
-- Sistema aste: pubblicazione aste, offerte e visualizzazione bid attuali.
-- Frontend React con pagine dedicate a dashboard, shop, aste e inventario.
+Il progetto include:
+- autenticazione JWT
+- shop con ricerca/ordinamento
+- acquisto oggetti con controllo saldo e stock
+- inventario utente
+- listing diretti e aste
+- UI React per dashboard, shop, inventario e aste
 
-## Stack Tecnologico
+## Stack Tecnologico Reale
 
 ### Backend
 
-- FastAPI
-- SQLAlchemy 2
-- Pydantic v2
-- JWT (python-jose)
-- Passlib bcrypt
-- Uvicorn
-- SQLite (default locale)
+- Python 3.11+
+- FastAPI 0.104.1
+- SQLAlchemy 2.0.23
+- Pydantic 2.5.0 + pydantic-settings 2.1.0
+- Uvicorn 0.24.0
+- JWT: python-jose 3.3.0 (presente anche pyjwt 2.12.1)
+- Password hashing: passlib[bcrypt] 1.7.4 + bcrypt 4.1.1
+- Database di default: SQLite (file backend/zeromarket.db)
 
 ### Frontend
 
 - React 18
-- Vite
-- React Router
+- Vite 5
+- React Router DOM 6
 - Axios
 - Recharts
 
-## Avvio Rapido
+### Infrastruttura
 
-Dalla root del progetto:
+- Script locale: start.sh
+- Container: Docker + docker-compose
+- Reverse proxy: Caddy (Caddyfile)
+- Frontend containerizzato servito con Nginx
+
+## Avvio Rapido (Locale)
+
+Dalla root:
 
 ```bash
 chmod +x start.sh
 ./start.sh
 ```
 
-Servizi disponibili:
-
+Servizi:
 - Frontend: http://localhost:5173
 - Backend: http://localhost:8000
-- API Docs: http://localhost:8000/docs
+- Swagger UI: http://localhost:8000/docs
+
+Nota: lo script resta in foreground. Se chiudi terminale o premi Ctrl+C, esegue cleanup e spegne backend/frontend.
 
 ## Setup Manuale
 
@@ -56,7 +66,7 @@ python3 -m venv ../venv
 source ../venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
-python3 -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 ### 2) Frontend
@@ -67,25 +77,72 @@ npm install
 npm run dev -- --host 0.0.0.0 --port 5173
 ```
 
-## Configurazione Ambiente
+Nota: in frontend/vite.config.js la porta default e 3000, ma con il comando sopra forzi 5173.
 
-Parametri principali backend (file .env in cartella backend):
+## Configurazione Ambiente (Backend)
 
+File: backend/.env
+
+Variabili principali:
+- API_V1_STR (default: /api/v1)
+- PROJECT_NAME (default: ZeroMarket)
+- DEBUG (default: true)
+- ENVIRONMENT (default: development)
 - DATABASE_URL (default: sqlite:///./zeromarket.db)
 - SECRET_KEY
 - ALGORITHM (default: HS256)
-- ACCESS_TOKEN_EXPIRE_MINUTES (usato come base config)
-- API_V1_STR (default: /api/v1)
+- ACCESS_TOKEN_EXPIRE_MINUTES (default: 30)
 
-Nota: in login il token viene emesso con durata impostata a 7 giorni nel codice attuale.
+## API Base URL
+
+- Base: http://localhost:8000/api/v1
+
+Endpoint principali:
+- Auth: POST /auth/register, POST /auth/login, GET /auth/me
+- Items: GET /items, GET /items/{item_id}, POST /items
+- Orders: POST /orders, GET /orders/{order_id}
+- Inventory: GET /inventory
+- Listing: POST /inventory/list, GET /inventory/listings, PATCH /inventory/listings/{listing_id}/price
+- Aste: GET /inventory/auctions/active, POST /inventory/auctions/{listing_id}/bid, GET /inventory/auctions/{listing_id}/bids
+
+## Seed Dati
+
+Da backend con virtualenv attivo:
+
+```bash
+python scripts/seed_shop_items.py
+python scripts/seed_wz_items.py
+```
+
+## Avvio con Docker (Stato Attuale)
+
+Esiste una configurazione docker-compose con 3 servizi:
+- backend
+- frontend
+- caddy
+
+Comando:
+
+```bash
+docker compose up --build
+```
+
+Importante:
+- nel compose sono pubblicate verso host solo le porte di caddy (80/443)
+- backend/frontend non espongono porte host dirette
+- Caddyfile usa ancora il placeholder tuo-dominio.com, quindi per uso locale va adattato
+
+## Incongruenze Note (Da Tenere a Mente)
+
+1. docs/SETUP.md menziona PostgreSQL, ma la config reale di default e SQLite.
+2. Caddyfile non e pronto out-of-the-box per localhost perche usa un dominio placeholder.
+3. In requirements ci sono sia python-jose sia pyjwt: non e necessariamente un errore, ma puo creare confusione in manutenzione.
 
 ## Struttura Progetto
 
 ```text
 WZ-market/
 	backend/
-		main.py
-		requirements.txt
 		app/
 			api/
 			core/
@@ -93,99 +150,16 @@ WZ-market/
 			models/
 			schemas/
 		scripts/
-			seed_shop_items.py
-			seed_wz_items.py
+		main.py
+		requirements.txt
 	frontend/
+		src/
 		package.json
 		vite.config.js
-		src/
-			App.jsx
-			services/api.js
-			pages/
-			components/
 	docs/
 		API.md
 		SETUP.md
+	Caddyfile
+	docker-compose.yml
 	start.sh
 ```
-
-## Funzionalita Implementate
-
-### Autenticazione
-
-- Registrazione utente.
-- Login con JWT bearer token.
-- Endpoint profilo corrente (/auth/me) per restore sessione frontend.
-
-### Shop e Ordini
-
-- Lista item con paginazione, ricerca e sorting.
-- Dettaglio item.
-- Acquisto item con validazione saldo e disponibilita copie.
-- Riduzione saldo utente e aggiornamento inventario dopo acquisto.
-
-### Inventario e Market Listing
-
-- Visualizzazione inventario personale e valore totale.
-- Messa in vendita diretta o in asta da inventario.
-- Visualizzazione listing attivi utente.
-- Aggiornamento prezzo listing attivi.
-
-### Aste
-
-- Elenco aste attive pubbliche.
-- Piazzamento offerte con regole minime (no self-bid, importo crescente).
-- Visualizzazione storico offerte e highest bid di una specifica asta.
-
-## Endpoint Principali
-
-Base API:
-
-```text
-http://localhost:8000/api/v1
-```
-
-### Auth
-
-- POST /auth/register
-- POST /auth/login
-- GET /auth/me
-
-### Items
-
-- GET /items
-- GET /items/{item_id}
-- POST /items
-
-### Orders
-
-- POST /orders
-- GET /orders/{order_id}
-
-### Inventory / Listings / Auctions
-
-- GET /inventory
-- POST /inventory/list
-- GET /inventory/listings
-- PATCH /inventory/listings/{listing_id}/price
-- GET /inventory/auctions/active
-- POST /inventory/auctions/{listing_id}/bid
-- GET /inventory/auctions/{listing_id}/bids
-
-## Seed Dati e Utility
-
-Da eseguire dalla cartella backend con virtualenv attivo:
-
-```bash
-python scripts/seed_shop_items.py
-python scripts/seed_wz_items.py
-```
-
-Questi script creano/aggiornano categorie e oggetti di esempio per popolare lo shop.
-
-## Note Operative
-
-- Il DB di default e SQLite locale nella cartella backend.
-- Se cambi modelli/schema backend, riavvia il server FastAPI.
-- Se frontend e backend sono su host/porte diverse, controlla CORS in backend/main.py.
-- In caso di porte occupate, start.sh prova a liberare 8000, 5173 e 5174 automaticamente.
