@@ -1,40 +1,9 @@
 .app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
 }
 
 .app-container {
-  max-width: 1200px;
+  max-width: 1260px;
   margin: 0 auto;
   padding: 20px;
-}
-
-/* Loading state */
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  font-size: 18px;
-  color: var(--text-secondary);
-}
-
-/* Error state */
-.error {
-  background: rgba(239, 68, 68, 0.1);
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  color: #fca5a5;
-  padding: 16px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-/* Success state */
-.success {
-  background: rgba(16, 185, 129, 0.1);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  color: #86efac;
-  padding: 16px;
-  border-radius: 8px;
-  margin-bottom: 20px;
 }

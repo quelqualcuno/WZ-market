@@ -1,142 +1,152 @@
-/* ============================================================
-   ZERO MARKET - Global Theme (World Zero inspired)
-   Sostituisce: frontend/src/index.css
-   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-/* ---- Reset & Base ---- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+:root {
+  --bg: #07131a;
+  --bg-deep: #040d13;
+  --bg-panel: rgba(13, 28, 36, 0.78);
+  --bg-panel-strong: rgba(15, 33, 42, 0.94);
+  --bg-soft: #0f2530;
+
+  --text: #e6f5f5;
+  --text-secondary: #9eb7be;
+  --text-muted: #6f8b91;
+
+  --primary: #63d0ca;
+  --primary-dark: #2f8e96;
+  --primary-dim: rgba(99, 208, 202, 0.15);
+  --primary-glow: rgba(99, 208, 202, 0.35);
+
+  --gold: #f1cb7b;
+  --gold-dim: rgba(241, 203, 123, 0.14);
+  --danger: #f07e7e;
+  --danger-dim: rgba(240, 126, 126, 0.12);
+  --success: #8de1a8;
+  --success-dim: rgba(141, 225, 168, 0.12);
+
+  --border: rgba(120, 188, 194, 0.28);
+  --border-bright: rgba(140, 220, 215, 0.56);
+  --border-gold: rgba(241, 203, 123, 0.44);
+
+  --common: #9cb6bf;
+  --uncommon: #8de1a8;
+  --rare: #7bc2f1;
+  --epic: #c08bff;
+  --legendary: #f1cb7b;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
 }
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% -10%, rgba(99, 208, 202, 0.16), transparent 40%),
+    radial-gradient(circle at 88% 8%, rgba(241, 203, 123, 0.14), transparent 45%),
+    linear-gradient(175deg, #07131a 0%, #051017 45%, #040b11 100%);
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
 }
 
-code {
-  font-family: 'Fira Code', source-code-pro, Menlo, Monaco, Consolas, monospace;
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Cinzel', serif;
+  letter-spacing: 0.03em;
 }
 
-/* ---- CSS Variables ---- */
-:root {
-  /* Backgrounds */
-  --bg: #07090f;
-  --bg2: #0d1120;
-  --surface: #111827;
-  --surface2: #1a2235;
-  --surface3: #1f2a42;
-
-  /* Accent colors */
-  --primary: #4fa3e8;
-  --primary-dark: #2a6db5;
-  --primary-dim: rgba(79, 163, 232, 0.12);
-  --primary-glow: rgba(79, 163, 232, 0.25);
-
-  --violet: #9b6dff;
-  --violet-dim: rgba(155, 109, 255, 0.12);
-
-  --gold: #f0b843;
-  --gold2: #ffd966;
-  --gold-dim: rgba(240, 184, 67, 0.12);
-
-  --teal: #2ecfb8;
-  --teal-dim: rgba(46, 207, 184, 0.12);
-
-  /* Status */
-  --success: #3dd68c;
-  --success-dim: rgba(61, 214, 140, 0.12);
-  --warning: #f0b843;
-  --warning-dim: rgba(240, 184, 67, 0.12);
-  --danger: #e85555;
-  --danger-dim: rgba(232, 85, 85, 0.12);
-
-  /* Text */
-  --text: #e8eaf0;
-  --text-secondary: #94a3b8;
-  --text-muted: #5a6a8a;
-
-  /* Borders */
-  --border: rgba(100, 140, 255, 0.15);
-  --border-bright: rgba(100, 180, 255, 0.32);
-  --border-gold: rgba(240, 184, 67, 0.28);
-
-  /* Rarity colors */
-  --common: #8a9bb5;
-  --uncommon: #3ecf8e;
-  --rare: #4fa3e8;
-  --epic: #9b6dff;
-  --legendary: #f0b843;
-
-  /* Layout */
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-}
-
-/* ---- Scrollbar ---- */
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: var(--bg2); }
-::-webkit-scrollbar-thumb {
-  background: rgba(79, 163, 232, 0.3);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover { background: rgba(79, 163, 232, 0.55); }
-
-/* ---- Selection ---- */
 ::selection {
-  background: rgba(79, 163, 232, 0.25);
-  color: var(--text);
+  background: rgba(99, 208, 202, 0.3);
+  color: #f8ffff;
 }
 
-/* ---- Utility: Animations ---- */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.55; }
+::-webkit-scrollbar-track {
+  background: #061017;
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #2f8e96, #1d5d65);
+  border-radius: 999px;
 }
 
-/* ---- Global feedback states ---- */
-.error-msg {
+.error-msg,
+.error {
+  border: 1px solid rgba(240, 126, 126, 0.4);
   background: var(--danger-dim);
-  border: 1px solid rgba(232, 85, 85, 0.3);
-  color: #ff8a8a;
-  padding: 12px 16px;
+  color: #ffc2c2;
+  padding: 12px 14px;
   border-radius: var(--radius-md);
-  margin-bottom: 16px;
-  font-size: 14px;
 }
 
-.success-msg {
+.success-msg,
+.success {
+  border: 1px solid rgba(141, 225, 168, 0.4);
   background: var(--success-dim);
-  border: 1px solid rgba(61, 214, 140, 0.3);
-  color: var(--success);
-  padding: 12px 16px;
+  color: #b3efc5;
+  padding: 12px 14px;
   border-radius: var(--radius-md);
-  margin-bottom: 16px;
-  font-size: 14px;
 }
 
 .loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 260px;
-  font-size: 15px;
-  color: var(--text-muted);
-  letter-spacing: 0.5px;
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatDrift {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.01);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -220% center;
+  }
+  100% {
+    background-position: 220% center;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }

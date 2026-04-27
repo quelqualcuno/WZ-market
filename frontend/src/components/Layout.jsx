@@ -1,4 +1,4 @@
-import { Outlet, Link, useNavigate } from 'react-router-dom'
+import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom'
 import './Layout.css'
 
 function Layout({ user, onLogout }) {
@@ -11,25 +11,28 @@ function Layout({ user, onLogout }) {
 
   return (
     <div className="layout">
+      <div className="sky-layer" aria-hidden="true" />
+      <div className="rune-layer" aria-hidden="true" />
       <nav className="navbar">
         <div className="navbar-container">
           <div className="navbar-logo">
             <Link to="/">
-              <span className="logo-text">ZeroMarket</span>
+              <span className="logo-mark">WZ</span>
+              <span className="logo-text">World Zero Market</span>
             </Link>
           </div>
           <ul className="nav-menu">
-            <li><Link to="/">Dashboard</Link></li>
-            <li><Link to="/shop">Shop</Link></li>
-            <li><Link to="/auctions">Aste</Link></li>
-            <li><Link to="/inventory">Inventario</Link></li>
+            <li><NavLink to="/">Dashboard</NavLink></li>
+            <li><NavLink to="/shop">Shop</NavLink></li>
+            <li><NavLink to="/auctions">Aste</NavLink></li>
+            <li><NavLink to="/inventory">Inventario</NavLink></li>
           </ul>
           <div className="navbar-user">
             <span className="user-info">
-              👤 {user?.username || 'Guest'}
+              Avventuriero: {user?.username || 'Guest'}
             </span>
             <span className="balance">
-              💰 {user?.balance?.toFixed(2) || '0.00'}
+              Oro: {user?.balance?.toFixed(2) || '0.00'}
             </span>
             <button className="logout-btn" onClick={handleLogout}>
               Logout
@@ -44,38 +47,30 @@ function Layout({ user, onLogout }) {
       <footer className="site-footer">
         <div className="site-footer-grid">
           <div className="footer-block">
-            <h4>Contatti</h4>
-            <p>Email: support@zeromarket.it</p>
-            <p>Telefono: +39 02 1234 5678</p>
-            <p>Assistenza: Lun-Ven 09:00-18:00</p>
+            <h4>Gilda Mercanti</h4>
+            <p>Piazza Principale di Arcadia</p>
+            <p>Canale supporto: support@wzmarket.gg</p>
+            <p>Presidio attivo: Lun-Dom, 09:00-23:00</p>
           </div>
 
           <div className="footer-block">
-            <h4>Dati Aziendali</h4>
-            <p>ZeroMarket S.r.l.</p>
-            <p>Partita IVA: IT12345678901</p>
-            <p>Codice Fiscale: 12345678901</p>
-            <p>REA: MI-9876543</p>
+            <h4>Hub Trading</h4>
+            <p>Vendita diretta di equip e cosmetici</p>
+            <p>Aste live con rilanci in tempo reale</p>
+            <p>Storico prezzi e gestione inventario</p>
           </div>
 
           <div className="footer-block">
-            <h4>Sede & Info</h4>
-            <p>Via del Mercato 42, 20121 Milano (MI)</p>
-            <p>PEC: zeromarket@pec.example.it</p>
-            <p>Capitale Sociale: EUR 10.000 i.v.</p>
+            <h4>Standard</h4>
+            <p>Interfaccia responsive desktop/mobile</p>
+            <p>Transazioni tracciate lato backend</p>
+            <p>Design system fantasy originale</p>
           </div>
         </div>
 
         <p className="footer-manifesto">
-          il progetto reale e fallito, mancanza di investitori: 2 anni spesi nel vero sviluppo,
-          <br />
-          8 mesi solo per la formazione dei vari team di sviluppo..
-          <br />
-          34 persone
-          <br />
-          <span className="footer-manifesto-highlight">zero online..noi non ci arrenderemo</span>
-          <br />
-          -zero online.
+          Un mercato d'avventura pensato per il ritmo di World Zero:
+          <span className="footer-manifesto-highlight"> rapido, leggibile, epico.</span>
         </p>
 
         <div className="footer-bottom">
